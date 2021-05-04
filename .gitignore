@@ -1,0 +1,8 @@
+# Copy of Adams file
+venv/*
+.vscode/*
+__pycache__/
+.pytest_cache/
+junit/
+*.pyc
+.DS_Store
