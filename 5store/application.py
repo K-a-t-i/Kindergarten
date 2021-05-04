@@ -194,7 +194,55 @@ def logout():
 
 # search for books
 
-db = SQL("sqlite:///shows.db")
+#db = SQL("sqlite:///shows.db")
+
+#connect postgres DB - not for Cloud PostgreSQL?
+DB_HOST = ""
+DB_NAME = ""
+DB_USER = ""
+DB_PASS = ""
+
+import psycopg2
+import psycopg2.extras
+
+conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
+
+# cursor (cur) allows you to execute statements, using cursor() method on connection (conn)
+#cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+# execute statements like create statements insert, select (sql statements)
+# create a table 
+# call the cursor and the execute methode on cursor, table name: student (2 columns: id, name)
+#cur.execute("CREATE TABLE student (id SERIAL PRIMARY KEY, name VARCHAR);")
+
+# Annthony should be in the table of db
+#cur.execute("INSERT INTO student (name) VALUES(%s)", ("Anthony"))
+
+# See all students in table of db 
+#cur.execute("SELECT * FROM student;")
+
+# View all students in Terminal
+#print (cur.fetchall())
+
+# automatically commit for us and print all students and avoid close on cursor (below)
+with conn:
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
+
+        cur.execute("SELECT * FROM student;")
+        print (cur.fetchall())
+        # View only one student - Tupel
+        # cur.execute("SELECT * FROM student WHERE id = %s;", (1,))
+        # print(cur.fetchone()["name"])
+
+        #cur.execute("INSERT INTO student (name) VALUES(%s)", ("Anthony",))
+
+
+# commit methode will save anything what we run in execute
+# conn.commit()
+
+# cur.close()
+
+conn.close()
 
 
 @app.route("/")
