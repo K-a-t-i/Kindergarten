@@ -1,6 +1,6 @@
 # Copy of Adams file: 
 # https://github.com/DrAdamRoe/foundations-project-template
-from great_project.website import app  # noqa: F401
+from kindergarden.application import app  # noqa: F401
 
 # from hello.application import app
 # from froshims.application import app
